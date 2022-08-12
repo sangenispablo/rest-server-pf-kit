@@ -1,0 +1,29 @@
+<%- include('../includes/head.ejs') %>
+    <script src='/socket.io/socket.io.js'></script>
+    <script src='/js/chat.js'></script>
+    <link rel="stylesheet" href="/css/forms.css">
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>    
+        <h1>Mi Chat</h1>
+        <div id="chat"></div>
+        <hr>
+        <form onsubmit="return addMessage(this)">
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            value="<%= user_email %>"
+            readonly
+        />
+        <input
+            type="text"
+            id="texto"
+            placeholder="digite su texto"
+        />
+        <input class="btn" type="submit" value="Enviar" />
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

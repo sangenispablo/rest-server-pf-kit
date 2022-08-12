@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%- include('../includes/head.ejs') %>
+  </head>
+  <body class="nav-fixed">
+    <%- include('../includes/navbar.ejs') %>
+    <div id="layoutSidenav">
+      <%- include('../includes/sidenav.ejs') %>
+      <div id="layoutSidenav_content">
+        <main>
+          <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+            <div class="container-xl px-4">
+              <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                  <div class="col-auto mb-3">
+                    <h1 class="page-header-title">
+                      <div class="page-header-icon">
+                        <i data-feather="file"></i>
+                      </div>
+                      Blank Starter (Minimal)
+                    </h1>
+                  </div>
+                  <div class="col-12 col-xl-auto mb-3">
+                    Optional page header content
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+          <!-- Main page content-->
+          <div class="container-xl px-4 mt-4">
+            <div class="sbp-preview-content">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-4"><img class="img-fluid" src="assets/img/demo/cards/card-img-left.jpg" alt="..." /></div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card Image (Left)</h5>
+                                        <p class="card-text">Use the Bootstrap grid with utility classes to create this card variant.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card Image (Right)</h5>
+                                        <p class="card-text">Use the Bootstrap grid with utility classes to create this card variant.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><img class="img-fluid" src="assets/img/demo/cards/card-img-right.jpg" alt="..." /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </main>
+        <%- include('../includes/footer.ejs') %>    
+      </div>
+    </div>
+    <%- include('../includes/end.ejs') %>
+  </body>
+</html>
