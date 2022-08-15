@@ -1,6 +1,22 @@
 const Product = require("../models/product");
 const Order = require("../models/order");
 
+exports.getIndex = (req, res, next) => {
+  Product.find()
+    .then((products) => {
+      res.render("shop/index", {
+        prods: products,
+        pageTitle: "eCommerce",
+        path: "/",
+      });
+    })
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+};
+
 exports.getProducts = (req, res, next) => {
   Product.find()
     .then((products) => {
@@ -25,23 +41,6 @@ exports.getProduct = (req, res, next) => {
         product: product,
         pageTitle: product.title,
         path: "/products",
-      });
-    })
-    .catch((err) => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);
-    });
-};
-
-exports.getIndex = (req, res, next) => {
-  console.log('pero antes pase por aca...');
-  Product.find()
-    .then((products) => {
-      res.render("shop/index", {
-        prods: products,
-        pageTitle: "eCommerce",
-        path: "/",
       });
     })
     .catch((err) => {
