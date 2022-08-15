@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include('../includes/zeta_head.ejs') %>
+  </head>
+
+  <body>
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+
+      <!-- Page Header Start-->
+      <%- include('../includes/zeta_header.ejs') %>
+      <!-- Page Header Ends -->
+
+      <!-- Page Body Start-->
+      <div class="page-body-wrapper">
+
+        <!-- Page Sidebar Start-->
+        <%- include('../includes/zeta_sidebar.ejs') %>
+        <!-- Page Sidebar Ends-->
+
+        <!-- Page Lista de productos start -->
+        <%- include('../includes/zeta_list.ejs') %>
+        <!-- Page Lista de productos end -->
+
+        <!-- footer start -->
+        <%- include('../includes/zeta_footer.ejs') %>
+        <!-- footer end -->
+        
+      </div>
+
+    </div>
+
+    <%- include('../includes/zeta_end.ejs') %>
+  </body>
+</html>

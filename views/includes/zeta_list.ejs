@@ -1,0 +1,121 @@
+<div class="page-body">
+  <!-- Title start -->
+  <div class="container-fluid">
+    <div class="page-title">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <% if (prods.length > 0) { %>
+            <h3>Productos</h3>
+          <% } else { %>
+            <h3>No hay Productos todavia!</h3>
+          <% } %>
+        </div>
+        <div class="col-12 col-sm-6">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/"><i data-feather="home"></i></a>
+            </li>
+            <li class="breadcrumb-item">E-Commerce</li>
+            <li class="breadcrumb-item active">Productos</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Title end -->
+
+  <!-- Preguntamos si tenemos productos para listar -->
+  <% if (prods.length > 0) { %>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid product-wrapper">
+        <div class="product-grid">
+            <div class="product-wrapper-grid">
+                <div class="row">
+                    <% for (let product of prods) { %>
+                        <div class="col-xl-3 col-sm-6 xl-4">
+                            <div class="card">
+                                <div class="product-box">
+                                    <div class="product-img">
+                                        <!-- Si queremos poner Oferta o algún descuento -->
+                                        <div class="ribbon ribbon-danger">Oferta</div>
+                                        <img class="img-fluid" src="/<%= product.imageUrl %>" alt="<%= product.title %>" />
+                                        <div class="product-hover">
+                                            <!-- Cuando pasamos el mouse sobre la foto salen dos botones para -->
+                                            <!-- ver el detalle o agregar al carrito -->
+                                            <ul>
+                                                <li>
+                                                    <a href="cart.html"><i class="icon-shopping-cart"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a data-bs-toggle="modal" data-bs-target="#modal<%= prods.indexOf(product) %>">
+                                                        <i class="icon-eye"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Modal con el detail del producto -->
+
+                                    <div class="modal fade" id="modal<%= prods.indexOf(product) %>">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <div class="product-box row">
+                                                <div class="product-img col-lg-6">
+                                                    <img class="img-fluid" src="/<%= product.imageUrl %>" alt="<%= product.title %>">
+                                                </div>
+                                                <div class="product-details col-lg-6 text-start">
+                                                    <a href="/products/<%= product._id %>">
+                                                        <h4><%= product.title %></h4>
+                                                    </a>
+                                                <div class="product-price">$<%= product.price %></div>
+                                                <div class="product-view">
+                                                    <h6 class="f-w-600">Detalle del Producto</h6>
+                                                    <p class="mb-0"><%= product.description %></p>
+                                                </div>
+                                                <div class="product-qnty mt-2">
+                                                    <h6 class="f-w-600">Cantidad</h6>
+                                                    <fieldset>
+                                                    <div class="input-group">
+                                                        <input class="touchspin text-center" type="text" value="1">
+                                                    </div>
+                                                    </fieldset>
+                                                    <div class="addcart-btn">
+                                                        <a class="btn btn-primary me-3" href="cart.html">Agregar a Carrito</a>
+                                                        <a class="btn btn-primary" href="/products/<%= product._id %>">Ver detalles</a>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-details">
+                                        <!-- Podriamos crear un campo para esto -->
+                                        <div class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <a href="/products/<%= product._id %>">
+                                            <h4><%= product.title %></h4>
+                                        </a>
+                                        <p><%= product.description %></p>
+                                        <div class="product-price">$<%= product.price %></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- Container-fluid Ends-->
+  <% } %>
+</div>
