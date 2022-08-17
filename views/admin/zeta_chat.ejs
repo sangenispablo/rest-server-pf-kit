@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include('../includes/zeta_head.ejs') %>
+    <!-- lib para socket y manejo del client -->
+    <script src='/socket.io/socket.io.js'></script>
+    
+  </head>
+
+  <body>
+
+    <%- include('../includes/zeta_loader.ejs') %>
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+
+      <!-- Page Header Start-->
+      <%- include('../includes/zeta_header.ejs') %>
+      <!-- Page Header Ends -->
+
+      <!-- Page Body Start-->
+      <div class="page-body-wrapper">
+
+        <!-- Page Sidebar Start-->
+        <%- include('../includes/zeta_sidebar.ejs') %>
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+          
+            <div class="container-fluid">
+                <div class="page-title">
+                  <div class="row">
+                    <div class="col-12 col-sm-6">
+                      <h3>Chat App</h3>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item">Chat</li>
+                        <li class="breadcrumb-item active"> Chat App</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col call-chat-body">
+                    <div class="card">
+                      <div class="card-body p-0">
+                        <div class="row chat-box">
+                          <!-- Chat right side start-->
+                          <div class="col chat-right-aside">
+                            <!-- chat start-->
+                            <div class="chat">
+                              <!-- chat-header start-->
+                              <div class="media chat-header clearfix">
+                                <img class="rounded-circle" src="/assets/images/user/8.jpg" alt="">
+                                <div class="media-body">
+                                  <div class="about">
+                                    <div id="emisor" class="name"><%= user_email %></div>
+                                    <div class="status digits">en este momento...</div>
+                                  </div>
+                                </div>
+                                <ul class="list-inline float-start float-sm-end chat-menu-icons">
+                                  <li class="list-inline-item toogle-bar"><a href="javascript:void(0)"><i class="icon-menu"></i></a></li>
+                                </ul>
+                              </div>
+                              <!-- chat-header end-->
+                              <div class="chat-history chat-msg-box custom-scrollbar">
+                                <ul id="chat">
+                                  <!-- <li>
+                                    <div class="message my-message">
+                                        <img class="rounded-circle float-start chat-user-img img-30" src="/assets/images/user/3.png" alt="">
+                                        <div class="message-data text-end">
+                                            <span class="message-data-time">10:12 am</span>
+                                        </div>
+                                        Mi mensaje, este deberia salir a la derecha
+                                    </div>
+                                  </li>
+                                  <li class="clearfix">
+                                    <div class="message other-message pull-right">
+                                        <img class="rounded-circle float-end chat-user-img img-30" src="/assets/images/user/12.png" alt="">
+                                        <div class="message-data">
+                                            <span class="message-data-time">10:14 am</span>
+                                        </div>
+                                        Mensaje del otro... deberia salir a la izquierda
+                                    </div>
+                                  </li> -->
+                                </ul>
+                              </div>
+                              <!-- end chat-history-->
+                              <div class="chat-message clearfix">
+                                <div class="row">
+                                  <div class="col-xl-12 d-flex">
+                                    <div class="smiley-box bg-primary">
+                                      <div class="picker"><img src="/assets/images/smiley.png" alt=""></div>
+                                    </div>
+                                        <form onsubmit="return addMessage(this)" class="input-group text-box">
+                                            <input
+                                              hidden
+                                              type="text"
+                                              id="username"
+                                              value="<%= user_email %>"
+                                            />
+                                            <input 
+                                              class="form-control input-txt-bx" 
+                                              id="texto" 
+                                              type="text" 
+                                              name="texto" 
+                                              placeholder="Ingresa tu mensaje aqui......"
+                                            />
+                                            <input class="btn btn-primary input-group-text" type="submit" />
+                                        </form>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- end chat-message-->
+                              <!-- chat end-->
+                              <!-- Chat right side ends-->
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Container-fluid Ends-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+        </div>
+
+        <!-- footer start -->
+        <%- include('../includes/zeta_footer.ejs') %>
+        <!-- footer end -->
+        
+      </div>
+
+    </div>
+
+    <%- include('../includes/zeta_end.ejs') %>
+    <script src='/js/zeta_chat.js'></script>
+  </body>
+</html>

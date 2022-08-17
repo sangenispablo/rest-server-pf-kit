@@ -1,21 +1,10 @@
 const crypto = require("crypto");
 
 const bcrypt = require("bcryptjs");
-const nodemailer = require("nodemailer");
-const { validationResult, body } = require("express-validator");
+const { validationResult } = require("express-validator");
 
+const { transporter, TEST_MAIL } = require("../util/mailer");
 const User = require("../models/user");
-
-const TEST_MAIL = "pablo@c1381926.ferozo.com";
-
-const transporter = nodemailer.createTransport({
-  host: "c1381926.ferozo.com",
-  port: 465,
-  auth: {
-    user: TEST_MAIL,
-    pass: "L3v3lup@pab",
-  },
-});
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash("error");
@@ -24,7 +13,7 @@ exports.getLogin = (req, res, next) => {
   } else {
     message = null;
   }
-  res.render("auth/login", {
+  res.render("auth/zeta_login", {
     path: "/login",
     pageTitle: "Iniciar",
     errorMessage: message,
@@ -43,7 +32,7 @@ exports.getSignup = (req, res, next) => {
   } else {
     message = null;
   }
-  res.render("auth/signup", {
+  res.render("auth/zeta_signup", {
     path: "/signup",
     pageTitle: "Registro",
     errorMessage: message,
@@ -62,7 +51,7 @@ exports.postLogin = (req, res, next) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).render("auth/login", {
+    return res.status(422).render("auth/zeta_login", {
       path: "/login",
       pageTitle: "Iniciar",
       errorMessage: errors.array()[0].msg,
@@ -77,7 +66,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
-        return res.status(422).render("auth/login", {
+        return res.status(422).render("auth/zeta_login", {
           path: "/login",
           pageTitle: "Iniciar",
           errorMessage: "Correo o contraseña incorrecta.",
@@ -99,7 +88,7 @@ exports.postLogin = (req, res, next) => {
               res.redirect("/");
             });
           }
-          return res.status(422).render("auth/login", {
+          return res.status(422).render("auth/zeta_login", {
             path: "/login",
             pageTitle: "Iniciar",
             errorMessage: "Correo o contraseña incorrecta.",
@@ -127,7 +116,7 @@ exports.postSignup = (req, res, next) => {
   const password = req.body.password;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).render("auth/signup", {
+    return res.status(422).render("auth/zeta_signup", {
       path: "/signup",
       pageTitle: "Registro",
       errorMessage: errors.array()[0].msg,
@@ -179,7 +168,7 @@ exports.getReset = (req, res, next) => {
   } else {
     message = null;
   }
-  res.render("auth/reset", {
+  res.render("auth/zeta_reset", {
     path: "/reset",
     pageTitle: "Resetear Contraseña",
     errorMessage: message,
@@ -200,7 +189,8 @@ exports.postReset = (req, res, next) => {
           return res.redirect("/reset");
         }
         user.resetToken = token;
-        user.resetTokenExpiration = Date.now() + process.env.TOKENEXPIRATION;
+        user.resetTokenExpiration =
+          Date.now() + parseInt(process.env.TOKENEXPIRATION);
         return user.save();
       })
       .then((result) => {
@@ -218,6 +208,7 @@ exports.postReset = (req, res, next) => {
         });
       })
       .catch((err) => {
+        console.log(err);
         const error = new Error(err);
         error.httpStatusCode = 500;
         return next(error);
@@ -235,7 +226,7 @@ exports.getNewPassword = (req, res, next) => {
       } else {
         message = null;
       }
-      res.render("auth/new-password", {
+      res.render("auth/zeta_new-password", {
         path: "/new-password",
         pageTitle: "Nueva Contraseña",
         errorMessage: message,

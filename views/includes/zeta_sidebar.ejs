@@ -3,15 +3,15 @@
     <div>
         <div class="logo-wrapper">
             <a href="/">
-                <img class="img-fluid for-light" src="../assets/images/logo/small-logo.png" alt="">
-                <img class="img-fluid for-dark" src="../assets/images/logo/small-white-logo.png" alt="">
+                <img class="img-fluid for-light" src="/assets/images/logo/small-logo.png" alt="">
+                <img class="img-fluid for-dark" src="/assets/images/logo/small-white-logo.png" alt="">
             </a>
             <div class="back-btn"><i class="fa fa-angle-left"></i></div>
         </div>
 
         <div class="logo-icon-wrapper">
             <a href="/">
-                <img class="img-fluid" src="../assets/images/logo-icon.png" alt="">
+                <img class="img-fluid" src="/assets/images/logo-icon.png" alt="">
             </a>
         </div>
 
@@ -24,42 +24,53 @@
                 <ul class="sidebar-links" id="simple-bar">
                     <li class="back-btn">
                         <a href="/">
-                            <img class="img-fluid" src="../assets/images/logo-icon.png" alt="">
+                            <img class="img-fluid" src="/assets/images/logo-icon.png" alt="">
                         </a>
                         <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                     </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="/">
-                            <i data-feather="home"></i><span>Dashboard</span>
+                            <i data-feather="home"></i><span>Shopping</span>
                         </a>
                     </li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g> 
+                    <% if (isAuthenticated) { %>
+                        <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g> 
-                              <path d="M15.7499 9.47167V6.43967C15.7549 4.35167 14.0659 2.65467 11.9779 2.64967C9.88887 2.64567 8.19287 4.33467 8.18787 6.42267V9.47167" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.94995 14.2074C2.94995 8.91344 5.20495 7.14844 11.969 7.14844C18.733 7.14844 20.988 8.91344 20.988 14.2074C20.988 19.5004 18.733 21.2654 11.969 21.2654C5.20495 21.2654 2.94995 19.5004 2.94995 14.2074Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <g> 
+                                <path d="M15.7499 9.47167V6.43967C15.7549 4.35167 14.0659 2.65467 11.9779 2.64967C9.88887 2.64567 8.19287 4.33467 8.18787 6.42267V9.47167" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.94995 14.2074C2.94995 8.91344 5.20495 7.14844 11.969 7.14844C18.733 7.14844 20.988 8.91344 20.988 14.2074C20.988 19.5004 18.733 21.2654 11.969 21.2654C5.20495 21.2654 2.94995 19.5004 2.94995 14.2074Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
                             </g>
-                          </g>
-                        </svg><span>E-commerce</span></a>
-                      <ul class="sidebar-submenu">
-                        <li><a href="product.html">Product</a></li>
-                        <li><a href="product-page.html">Product page</a></li>
-                        <li><a href="list-products.html">Product list</a></li>
-                        <li><a href="payment-details.html">Payment Details</a></li>
-                        <li><a href="order-history.html">Order History</a></li>
-                        <li><a href="invoice-template.html">Invoice</a></li>
-                        <li><a href="cart.html">Cart</a></li>
-                        <li><a href="list-wish.html">Wishlist</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="pricing.html">Pricing              </a></li>
-                      </ul>
-                    </li>
+                            </svg><span>E-commerce</span></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/cart">Carrito</a></li>
+                                <li><a href="/orders">Ordenes</a></li>
+                                <li><a href="/admin/products">Lista de Productos</a></li>
+                                <li><a href="/admin/add-product">Nuevo Producto</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <g> 
+                                <g> 
+                                  <path d="M15.9393 12.4131H15.9483" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                  <path d="M11.9303 12.4131H11.9393" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                  <path d="M7.92128 12.4131H7.93028" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19.071 19.0698C16.0159 22.1264 11.4896 22.7867 7.78631 21.074C7.23961 20.8539 3.70113 21.8339 2.93334 21.067C2.16555 20.2991 3.14639 16.7601 2.92631 16.2134C1.21285 12.5106 1.87411 7.9826 4.9302 4.9271C8.83147 1.0243 15.1698 1.0243 19.071 4.9271C22.9803 8.83593 22.9723 15.1681 19.071 19.0698Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                              </g>
+                            </svg><span>Chat</span></a>
+                          <ul class="sidebar-submenu">
+                            <li><a href="/admin/chat">Chat App</a></li>
+                          </ul>
+                        </li>
+                    <% } %>
                 </ul>
 
                 <div class="sidebar-img-section">
                     <div class="sidebar-img-content">
-                        <img class="img-fluid" src="../assets/images/side-bar.png" alt="ayuda">
+                        <img class="img-fluid" src="/assets/images/side-bar.png" alt="ayuda">
                         <h4>¿Necesita Ayuda?</h4>
                         <a class="txt" href="#">Envie un mail a: "support@coderhouse.com"</a>
                     </div>

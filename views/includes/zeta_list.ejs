@@ -44,7 +44,13 @@
                                             <!-- ver el detalle o agregar al carrito -->
                                             <ul>
                                                 <li>
-                                                    <a href="cart.html"><i class="icon-shopping-cart"></i></a>
+                                                    
+                                                    <form action="/cart" method="post">
+                                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                        <input type="hidden" name="productId" value="<%= product._id %>">
+                                                        <button class="btn" type="submit"><i class="icon-shopping-cart"></i></button>
+                                                    </form>
+
                                                 </li>
                                                 <li>
                                                     <a data-bs-toggle="modal" data-bs-target="#modal<%= prods.indexOf(product) %>">
@@ -81,8 +87,12 @@
                                                     </div>
                                                     </fieldset>
                                                     <div class="addcart-btn">
-                                                        <a class="btn btn-primary me-3" href="cart.html">Agregar a Carrito</a>
-                                                        <a class="btn btn-primary" href="/products/<%= product._id %>">Ver detalles</a>
+                                                        <form action="/cart" method="post">
+                                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                            <input type="hidden" name="productId" value="<%= product._id %>">
+                                                            <button class="btn btn-primary me-3" type="submit">Agregar a Carrito</button>
+                                                            <a class="btn btn-primary" href="/products/<%= product._id %>">Ver detalles</a>
+                                                        </form>
                                                     </div>
                                                 </div>
                                                 </div>

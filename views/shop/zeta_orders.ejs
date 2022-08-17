@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include('../includes/zeta_head.ejs') %>
+  </head>
+
+  <body>
+
+    <%- include('../includes/zeta_loader.ejs') %>
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+
+      <!-- Page Header Start-->
+      <%- include('../includes/zeta_header.ejs') %>
+      <!-- Page Header Ends -->
+
+      <!-- Page Body Start-->
+      <div class="page-body-wrapper">
+
+        <!-- Page Sidebar Start-->
+        <%- include('../includes/zeta_sidebar.ejs') %>
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+            <div class="container-fluid">
+              <div class="page-title">
+                <div class="row">
+                  <div class="col-12 col-sm-6">
+                    <% if (orders.length > 0) { %>
+                        <h3>Ordenes</h3>
+                    <% } else { %>
+                        <h3>No hay ordenes generadas</h3>
+                    <% } %>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="/"><i data-feather="home"></i></a>
+                      </li>
+                      <li class="breadcrumb-item">Ecommerce</li>
+                      <li class="breadcrumb-item active">Ordenes</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Container-fluid starts-->
+            <% if (orders.length > 0) { %>
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                        <h5>Ordenes emitidas</h5>
+                        </div>
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="order-history table-responsive wishlist">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Orden Numero</th>
+                                    <th>Usuario</th>
+                                    <th>Estado</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <% orders.forEach(order => { %>
+                                        <tr>
+                                            <td>
+                                                <%= order._id %>
+                                            </td>
+                                            <td>
+                                                <%= order.user.email %>
+                                            </td>
+                                            <td>
+                                                Despachado
+                                            </td>
+                                            <td>
+                                                Total    
+                                            </td>
+                                            
+                                        </tr>
+                                    <% }) %>    
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            <% } %>
+            <!-- Container-fluid Ends-->
+
+        </div>
+
+        <!-- footer start -->
+        <%- include('../includes/zeta_footer.ejs') %>
+        <!-- footer end -->
+        
+      </div>
+
+    </div>
+
+    <%- include('../includes/zeta_end.ejs') %>
+  </body>
+</html>

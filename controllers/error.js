@@ -1,5 +1,5 @@
 exports.get404 = (req, res, next) => {
-  res.status(404).render("404", {
+  res.status(404).render("zeta_404", {
     pageTitle: "¡Pagina no encontrada!",
     path: "/404",
     isAuthenticated: req.session.isLoggedIn,
@@ -7,7 +7,7 @@ exports.get404 = (req, res, next) => {
 };
 
 exports.get500 = (req, res, next) => {
-  res.status(404).render("500", {
+  res.status(404).render("zeta_500", {
     pageTitle: "¡Pagina de Error!",
     path: "/500",
     isAuthenticated: req.session.isLoggedIn,

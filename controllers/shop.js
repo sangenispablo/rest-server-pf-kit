@@ -1,3 +1,10 @@
+const fs = require("fs");
+const ejs = require("ejs");
+const path = require("path");
+
+const { transporter, TEST_MAIL } = require("../util/mailer");
+const pathApp = require("../util/path");
+
 const Product = require("../models/product");
 const Order = require("../models/order");
 
@@ -8,6 +15,7 @@ exports.getProducts = (req, res, next) => {
         prods: products,
         pageTitle: "Productos",
         path: "/products",
+        user: req.user,
       });
     })
     .catch((err) => {
@@ -25,6 +33,7 @@ exports.getProduct = (req, res, next) => {
         product: product,
         pageTitle: product.title,
         path: "/products",
+        user: req.user,
       });
     })
     .catch((err) => {
@@ -41,6 +50,7 @@ exports.getIndex = (req, res, next) => {
         prods: products,
         pageTitle: "eCommerce",
         path: "/",
+        user: req.user,
       });
     })
     .catch((err) => {
@@ -56,10 +66,11 @@ exports.getCart = (req, res, next) => {
     // .execPopulate()
     .then((user) => {
       const products = user.cart.items;
-      res.render("shop/cart", {
+      res.render("shop/zeta_cart", {
         path: "/cart",
         pageTitle: "Su Carrito",
         products: products,
+        user: req.user,
       });
     })
     .catch((err) => {
@@ -102,7 +113,6 @@ exports.postCartDeleteProduct = (req, res, next) => {
 exports.postOrder = (req, res, next) => {
   req.user
     .populate("cart.items.productId")
-    // .execPopulate()
     .then((user) => {
       const products = user.cart.items.map((i) => {
         return { quantity: i.quantity, product: { ...i.productId._doc } };
@@ -117,6 +127,22 @@ exports.postOrder = (req, res, next) => {
       return order.save();
     })
     .then((result) => {
+      // en este punto la orden esta lista y guardada
+      // ahora renderizo un ejs con los datos del producto
+      return ejs.renderFile(
+        path.join(pathApp, "views", "shop", "zeta_email-order.ejs"),
+        { email: req.user.email, products: req.user.cart.items }
+      );
+    })
+    .then((data) => {
+      transporter.sendMail({
+        to: req.user.email,
+        from: TEST_MAIL,
+        subject: "Pedido enviado",
+        html: data,
+      });
+    })
+    .then(() => {
       return req.user.clearCart();
     })
     .then(() => {
@@ -132,10 +158,11 @@ exports.postOrder = (req, res, next) => {
 exports.getOrders = (req, res, next) => {
   Order.find({ "user.userId": req.user._id })
     .then((orders) => {
-      res.render("shop/orders", {
+      res.render("shop/zeta_orders", {
         path: "/orders",
         pageTitle: "Sus Ordenes",
         orders: orders,
+        user: req.user,
       });
     })
     .catch((err) => {

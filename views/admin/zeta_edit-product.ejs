@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include('../includes/zeta_head.ejs') %>
+  </head>
+
+  <body>
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+
+      <!-- Page Header Start-->
+      <%- include('../includes/zeta_header.ejs') %>
+      <!-- Page Header Ends -->
+
+      <!-- Page Body Start-->
+      <div class="page-body-wrapper">
+
+        <!-- Page Sidebar Start-->
+        <%- include('../includes/zeta_sidebar.ejs') %>
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+
+          <div class="container-fluid">
+            <div class="page-title">
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                    <h3>Producto</h3>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="/"><i data-feather="home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">Ecommerce</li>
+                    <li class="breadcrumb-item active">Producto</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <!-- Container-fluid starts-->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card">
+                    <div class="card-header pb-0">
+                      <% if (editing) { %> <h5>Editando Producto</h5> <% } else { %><h5>Agregando Producto</h5><% } %>
+                    </div>
+                    <div class="card-body">
+                      <form class="needs-validation" novalidate="" action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST" enctype="multipart/form-data">
+                        
+                        <div class="row g-3">
+                          <div class="col-md-8">
+                            <label class="form-label" for="title">Titulo</label>
+                            <input 
+                              class="form-control <%= validationErrors.find(e=>e.param==='title') ? 'is-invalid': '' %>" type="text" 
+                              name="title" 
+                              id="title" 
+                              value="<% if (editing || hasError) { %><%= product.title %><% } %>"
+                            >
+                            <div class="invalid-feedback">Ingresa un valor valido para el Titulo</div>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label" for="category">Categoria</label>
+                            <input 
+                              class="form-control <%= validationErrors.find(e=>e.param==='category') ? 'is-invalid': '' %>" type="text" 
+                              name="category" 
+                              id="category" 
+                              value="<% if (editing || hasError) { %><%= product.category %><% } %>"
+                            >
+                          </div>
+                          <div class="invalid-feedback">Ingresa un valor valido para Categoria</div>
+                        </div>
+                        
+                        <div class="row g-3 mt-1">
+                          
+                          <div class="col-md-8">
+                            <label class="form-label" for="image">Imagen</label>
+                            <input class="form-control" type="file" aria-label="archivo de imagen" name="image" id="image">
+                          </div>
+
+                          <div class="col-md-4">
+                            <label class="form-label" for="price">Precio</label>
+                            <input 
+                              class="form-control <%= validationErrors.find(e=>e.param==='price') ? 'is-invalid': '' %>"
+                              type="number" 
+                              name="price" 
+                              id="price" 
+                              step="0.01" 
+                              value="<% if (editing || hasError) { %><%= product.price %><% } %>"
+                            >
+                          </div>
+                          <div class="invalid-feedback">Ingresa un valor valido para el Precio</div>
+                        </div>
+                        
+                        <div class="row g-3 mt-1">
+
+                          <div class="col-md-12 mb-2">
+                            <label class="form-label" for="description">Descripción</label>
+                            <textarea
+                              class="form-control <%= validationErrors.find(e=>e.param==='description') ? 'is-invalid': '' %>" 
+                              name="description" 
+                              id="description" 
+                              rows="5"><% if (editing || hasError) { %><%= product.description %><% } %>
+                            </textarea>
+                            <div class="invalid-feedback">Ingresa un valor valido para la Descripción</div>
+                          </div>
+
+                        </div>
+
+                        <% if (editing) { %>
+                          <input type="hidden" value="<%= product._id %>" name="productId">
+                        <% } %>
+          
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button class="btn btn-primary" type="submit"><% if (editing) { %>Guardar Producto<% } else { %>Agregar Producto<% } %></button>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Container-fluid Ends-->
+          </div>
+
+        <!-- footer start -->
+        <%- include('../includes/zeta_footer.ejs') %>
+        <!-- footer end -->
+        
+      </div>
+
+    </div>
+
+    <%- include('../includes/zeta_end.ejs') %>
+  </body>
+</html>

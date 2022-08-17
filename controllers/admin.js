@@ -3,13 +3,14 @@ const { validationResult } = require("express-validator");
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
-  res.render("admin/edit-product", {
+  res.render("admin/zeta_edit-product", {
     pageTitle: "Add Product",
     path: "/admin/add-product",
     editing: false,
     hasError: false,
     errorMessage: null,
     validationErrors: [],
+    user: req.user,
   });
 };
 
@@ -22,7 +23,7 @@ exports.postAddProduct = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).render("admin/edit-product", {
+    return res.status(422).render("admin/zeta_edit-product", {
       pageTitle: "Add Product",
       path: "/admin/edit-product",
       editing: false,
@@ -35,6 +36,7 @@ exports.postAddProduct = (req, res, next) => {
       },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
+      user: req.user,
     });
   }
 
@@ -76,7 +78,7 @@ exports.getEditProduct = (req, res, next) => {
       if (!product) {
         return res.redirect("/");
       }
-      res.render("admin/edit-product", {
+      res.render("admin/zeta_edit-product", {
         pageTitle: "Edit Product",
         path: "/admin/edit-product",
         editing: editMode,
@@ -84,6 +86,7 @@ exports.getEditProduct = (req, res, next) => {
         hasError: false,
         errorMessage: null,
         validationErrors: [],
+        user: req.user,
       });
     })
     .catch((err) => {
@@ -104,7 +107,7 @@ exports.postEditProduct = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).render("admin/edit-product", {
+    return res.status(422).render("admin/zeta_edit-product", {
       pageTitle: "Edit Product",
       path: "/admin/edit-product",
       editing: true,
@@ -118,6 +121,7 @@ exports.postEditProduct = (req, res, next) => {
       },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
+      user: req.user,
     });
   }
 
@@ -148,10 +152,11 @@ exports.postEditProduct = (req, res, next) => {
 exports.getProducts = (req, res, next) => {
   Product.find({ userId: req.user._id })
     .then((products) => {
-      res.render("admin/products", {
+      res.render("admin/zeta_products", {
         prods: products,
         pageTitle: "Admin Products",
         path: "/admin/products",
+        user: req.user,
       });
     })
     .catch((err) => {
@@ -176,7 +181,7 @@ exports.postDeleteProduct = (req, res, next) => {
 };
 
 exports.getChat = (req, res, next) => {
-  res.render("admin/chat", {
+  res.render("admin/zeta_chat", {
     pageTitle: "Chat",
     path: "/admin/chat",
     editing: false,
@@ -184,5 +189,6 @@ exports.getChat = (req, res, next) => {
     errorMessage: null,
     validationErrors: [],
     user_email: req.user.email,
+    user: req.user,
   });
 };

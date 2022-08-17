@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include('../includes/zeta_head.ejs') %>
+  </head>
+
+  <body>
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+
+      <!-- Page Header Start-->
+      <%- include('../includes/zeta_header.ejs') %>
+      <!-- Page Header Ends -->
+
+      <!-- Page Body Start-->
+      <div class="page-body-wrapper">
+
+        <!-- Page Sidebar Start-->
+        <%- include('../includes/zeta_sidebar.ejs') %>
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+          
+          <div class="container-fluid">
+            <div class="page-title">
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                  <% if (prods.length > 0) { %>
+                      <h3>Lista de Productos</h3>
+                  <% } else { %>
+                      <h3>No hay productos en la Lista</h3>
+                  <% } %>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="/"><i data-feather="home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">Ecommerce</li>
+                    <li class="breadcrumb-item active">Lista de Productos</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container-fluid starts-->
+          <% if (prods.length > 0) { %>
+              <div class="container-fluid">
+              <div class="row">
+                  <div class="col-sm-12">
+                  <div class="card">
+                      <div class="card-header pb-0">
+                      <h5>Productos</h5>
+                      </div>
+                      <div class="card-body">
+                      <div class="row">
+                          <div class="order-history table-responsive wishlist">
+                          <table class="table table-bordered">
+                              <thead>
+                              <tr>
+                                  <th>Producto</th>
+                                  <th>Nombre Producto</th>
+                                  <th>Precio</th>
+                                  <th>Categoria</th>
+                                  <th>Acción</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                                <% for (let product of prods) { %>
+                                      <tr>
+                                          <td>
+                                              <img class="img-fluid img-40" src="/<%= product.imageUrl %>" alt="<%= product.title %>">
+                                          </td>
+                                          <td>
+                                              <div class="product-name">
+                                                <h6><%= product.title %></h6>
+                                              </div>
+                                          </td>
+                                          <td>
+                                              $<%= product.price %>
+                                          </td>
+                                          <td>
+                                            <%= product.category %>
+                                        </td>
+                                          <td>
+                                              <a href="/admin/edit-product/<%= product._id %>?edit=true" class="btn">
+                                                <i data-feather="edit"></i>
+                                              </a>
+                                              <form action="/admin/delete-product" method="POST">
+                                                <input type="hidden" value="<%= product._id %>" name="productId">
+                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                <button class="btn" type="submit"><i data-feather="x-circle"></i></button>
+                                              </form>
+                                          </td>
+                                      </tr>
+                                <% } %>    
+                              </tbody>
+                          </table>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </div>
+          <% } %>
+          <!-- Container-fluid Ends-->
+
+        </div>
+
+        <!-- footer start -->
+        <%- include('../includes/zeta_footer.ejs') %>
+        <!-- footer end -->
+        
+      </div>
+
+    </div>
+
+    <%- include('../includes/zeta_end.ejs') %>
+  </body>
+</html>
