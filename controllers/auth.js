@@ -186,26 +186,29 @@ exports.postReset = (req, res, next) => {
       .then((user) => {
         if (!user) {
           req.flash("error", "No hay una cuenta con ese correo electronico");
-          return res.redirect("/reset");
+          res.redirect("/reset");
+        } else {
+          user.resetToken = token;
+          user.resetTokenExpiration =
+            Date.now() + parseInt(process.env.TOKENEXPIRATION);
+          return user.save();
         }
-        user.resetToken = token;
-        user.resetTokenExpiration =
-          Date.now() + parseInt(process.env.TOKENEXPIRATION);
-        return user.save();
       })
       .then((result) => {
-        res.redirect("/");
-        const urlFull =
-          req.protocol + "://" + req.get("host") + req.originalUrl;
-        transporter.sendMail({
-          to: req.body.email,
-          from: TEST_MAIL,
-          subject: "Reset de Contraseña",
-          html: `
-            <p>Su pedido de reset de contraseña</p>
-            <p>Clickear <a href="${urlFull}/${token}">aqui</a> para cambiar la misma.</p>
-          `,
-        });
+        if (result) {
+          res.redirect("/");
+          const urlFull =
+            req.protocol + "://" + req.get("host") + req.originalUrl;
+          transporter.sendMail({
+            to: req.body.email,
+            from: TEST_MAIL,
+            subject: "Reset de Contraseña",
+            html: `
+              <p>Su pedido de reset de contraseña</p>
+              <p>Clickear <a href="${urlFull}/${token}">aqui</a> para cambiar la misma.</p>
+            `,
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
